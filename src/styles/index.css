@@ -1,0 +1,202 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/plus-jakarta-sans/index.css';
+@import '@fontsource-variable/playfair-display/wght.css';
+@import '@fontsource-variable/playfair-display/wght-italic.css';
+
+/* ---------------------------------------------------------------------------
+   Design tokens. Palette is the brief's palette; nothing else is added except
+   neutral support tones derived from it. Business content never lives here.
+   ------------------------------------------------------------------------ */
+@theme {
+  --color-forest: #123d32;
+  --color-forest-deep: #0b2a22;
+  --color-fresh: #78b89a;
+  --color-mint: #eaf5ef;
+  --color-paper: #fafaf7;
+  --color-charcoal: #202b26;
+  /* support tones */
+  --color-ink-soft: #4b5b53; /* secondary text: 7.2:1 on paper */
+  --color-line: #dfe4de; /* decorative hairlines only */
+  --color-line-strong: #6b8678; /* interactive borders: 3.7:1 on paper */
+
+  --font-sans: 'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Playfair Display Variable', ui-serif, Georgia, 'Times New Roman', serif;
+
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --shadow-soft: 0 1px 2px rgb(18 61 50 / 0.06), 0 12px 32px -12px rgb(18 61 50 / 0.18);
+}
+
+:root {
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --nav-h: 4.5rem;
+}
+
+/* ------------------------------------------------------------- base ---- */
+html {
+  /* hidden first as fallback, clip where supported: hidden alone still lets code scroll sideways */
+  overflow-x: hidden;
+  overflow-x: clip;
+  -webkit-text-size-adjust: 100%;
+  /* One step smaller across the whole site (15px at the default setting). Everything is sized in
+     rem, so type and spacing scale together and a user's own browser font size still applies. */
+  font-size: 93.75%;
+  /* NB: no CSS scroll-behavior here. Smooth CSS scrolling fights ScrollTrigger's
+     programmatic scroll restoration; anchor smoothing is done in JS (useHashScroll). */
+}
+
+body {
+  overflow-x: hidden;
+  overflow-x: clip;
+  background: var(--color-paper);
+  color: var(--color-charcoal);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+html.no-scroll,
+html.no-scroll body {
+  overflow: hidden;
+}
+
+::selection {
+  background: var(--color-fresh);
+  color: var(--color-forest-deep);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-forest);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.on-dark :focus-visible {
+  outline-color: var(--color-fresh);
+}
+
+/* Touch targets: at least 44px for coarse pointers, without changing layout. */
+@media (pointer: coarse) {
+  .tap {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* ------------------------------------------------------- type system ---- */
+.font-display {
+  font-weight: 500;
+  letter-spacing: -0.012em;
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.container-x {
+  width: min(100% - 2 * var(--gutter), 82rem);
+  margin-inline: auto;
+}
+
+/* Skip link: hidden until focused. */
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  background: var(--color-forest);
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: top 0.2s var(--ease-premium);
+}
+.skip-link:focus-visible {
+  top: 1rem;
+  outline-color: var(--color-fresh);
+}
+
+/* -------------------------------------------- off-screen section deferral ---- */
+/* Below-the-fold homepage sections skip style/layout/paint until they are near the viewport.
+   `auto` in contain-intrinsic-size makes the browser remember each section's real height once seen. */
+.defer {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 50rem;
+}
+
+/* ------------------------------------------------------ scroll reveal ---- */
+[data-reveal] {
+  transition:
+    opacity 0.9s var(--ease-premium),
+    transform 0.9s var(--ease-premium);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+[data-reveal='pending'] {
+  opacity: 0;
+  transform: translateY(var(--reveal-y, 28px));
+}
+
+/* ------------------------------------------- before/after comparison ---- */
+.compare {
+  --pos: 50%;
+  touch-action: pan-y;
+  cursor: ew-resize;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.compare__before {
+  clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+}
+.compare__line {
+  left: var(--pos);
+}
+.compare:not([data-dragging='true']) .compare__before,
+.compare:not([data-dragging='true']) .compare__line {
+  transition:
+    clip-path 0.45s var(--ease-premium),
+    left 0.45s var(--ease-premium);
+}
+.compare__handle {
+  transition: transform 0.3s var(--ease-premium), box-shadow 0.3s;
+}
+.compare[data-dragging='true'] .compare__handle,
+.compare__thumb:focus-visible .compare__handle {
+  transform: scale(1.1);
+}
+.compare__thumb:focus-visible {
+  outline: none;
+}
+.compare__thumb:focus-visible .compare__handle {
+  box-shadow: 0 0 0 3px var(--color-paper), 0 0 0 6px var(--color-forest);
+}
+@keyframes nudge {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(6px);
+  }
+}
+.compare[data-hint='true'] .compare__handle {
+  animation: nudge 1.8s var(--ease-inout) 3;
+}
+
+/* -------------------------------------------------- reduced motion ------ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    transition-delay: 0s !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,4 @@
+# Allow all crawlers. Add the absolute sitemap URL at deploy time, e.g.:
+# Sitemap: https://www.your-domain.com/sitemap.xml
+User-agent: *
+Allow: /
