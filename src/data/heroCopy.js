@@ -9,8 +9,8 @@ export const heroCopy = {
     cue: 'Scroll to clean',
   },
   act2: {
-    headline: 'We Make It Beautiful Again.',
-    emphasis: ['Beautiful'],
+    headline: "We're Cleaning it.",
+    emphasis: ['Cleaning'],
   },
   act3: {
     headline: 'Come Home to Clean.',
