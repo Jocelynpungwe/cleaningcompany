@@ -39,10 +39,10 @@ export default function Faq() {
                     onClick={() => toggle(i)}
                     className="tap group flex w-full items-center justify-between gap-6 py-6 text-left"
                   >
-                    <span className="font-display text-xl text-forest sm:text-2xl">{f.q}</span>
+                    <span className="font-display text-xl text-espresso sm:text-2xl">{f.q}</span>
                     <span
                       aria-hidden="true"
-                      className={`grid size-10 shrink-0 place-items-center rounded-full border border-line-strong/60 text-forest transition-[transform,background-color] duration-500 ease-[var(--ease-premium)] group-hover:bg-mint ${isOpen ? 'rotate-45 bg-mint' : ''}`}
+                      className={`grid size-10 shrink-0 place-items-center rounded-full border border-line-strong/60 text-espresso transition-[transform,background-color] duration-500 ease-[var(--ease-premium)] group-hover:bg-cream ${isOpen ? 'rotate-45 bg-cream' : ''}`}
                     >
                       <Plus className="size-4" />
                     </span>

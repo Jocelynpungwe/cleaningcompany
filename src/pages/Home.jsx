@@ -3,6 +3,7 @@ import Trust from '../sections/Trust/Trust'
 import AboutPreview from '../sections/About/AboutPreview'
 import ServicesShowcase from '../sections/Services/ServicesShowcase'
 import BeforeAfter from '../sections/Gallery/BeforeAfter'
+import CleaningVideo from '../sections/Video/CleaningVideo'
 import WhyChoose from '../sections/Why/WhyChoose'
 import Process from '../sections/Process/Process'
 import Estimator from '../sections/Estimator/Estimator'
@@ -27,6 +28,7 @@ export default function Home() {
       <AboutPreview />
       <ServicesShowcase />
       <BeforeAfter />
+      <CleaningVideo />
       <WhyChoose />
       <Process />
       <Estimator />

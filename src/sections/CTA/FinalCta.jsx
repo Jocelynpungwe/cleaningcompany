@@ -6,7 +6,7 @@ import ctaImg from '../../assets/images/cta/final-cta.webp'
 
 export default function FinalCta() {
   return (
-    <section aria-labelledby="cta-title" className="defer on-dark relative isolate overflow-hidden bg-forest-deep py-28 text-white md:py-40">
+    <section aria-labelledby="cta-title" className="defer on-dark relative isolate overflow-hidden bg-espresso-deep py-28 text-white md:py-40">
       <img
         src={ctaImg}
         alt={finalCta.imageAlt}
@@ -19,7 +19,7 @@ export default function FinalCta() {
       {/* Solid forest wash on the text side keeps white type above 7:1 over the bright photo. */}
       <span
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-gradient-to-r from-forest-deep via-forest-deep/85 via-45% to-forest-deep/20 max-md:bg-forest-deep/80"
+        className="absolute inset-0 -z-10 bg-gradient-to-r from-espresso-deep via-espresso-deep/85 via-45% to-espresso-deep/20 max-md:bg-espresso-deep/80"
       />
       <div className="container-x">
         <Reveal className="max-w-2xl">

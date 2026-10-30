@@ -8,7 +8,7 @@ import aboutImg from '../../assets/images/about/about.webp'
 
 export default function AboutPreview({ id = 'about', headingTag = 'h2' }) {
   return (
-    <section id={id} aria-labelledby="about-title" className="defer bg-mint py-24 md:py-32">
+    <section id={id} aria-labelledby="about-title" className="defer bg-cream py-24 md:py-32">
       <div className="container-x grid items-center gap-14 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:gap-24">
         <Reveal className="relative mx-auto w-full max-w-md lg:max-w-none">
           <div className="aspect-[4/5] overflow-hidden rounded-[2rem] bg-white shadow-[var(--shadow-soft)]">
@@ -22,7 +22,7 @@ export default function AboutPreview({ id = 'about', headingTag = 'h2' }) {
               className="size-full object-cover"
             />
           </div>
-          <div className="absolute -bottom-6 -right-2 rounded-2xl bg-forest px-7 py-6 text-white shadow-[var(--shadow-soft)] sm:-right-8">
+          <div className="absolute -bottom-6 -right-2 rounded-2xl bg-espresso px-7 py-6 text-white shadow-[var(--shadow-soft)] sm:-right-8">
             <p className="font-display text-5xl leading-none" aria-hidden="true">
               <CountUp to={business.yearsExperience} />
             </p>
@@ -41,10 +41,18 @@ export default function AboutPreview({ id = 'about', headingTag = 'h2' }) {
               <p key={p}>{p}</p>
             ))}
           </Reveal>
-          <ul className="mt-10 grid gap-6 border-t border-forest/15 pt-8 sm:grid-cols-3">
+          {about.quote && (
+            <Reveal delay={160} className="mt-9">
+              <figure className="border-l-2 border-gold pl-5">
+                <blockquote className="font-display text-xl leading-snug text-espresso">&ldquo;{about.quote.text}&rdquo;</blockquote>
+                <figcaption className="mt-3 text-sm font-semibold text-ink-soft">{about.quote.by}</figcaption>
+              </figure>
+            </Reveal>
+          )}
+          <ul className="mt-10 grid gap-6 border-t border-espresso/15 pt-8 sm:grid-cols-3">
             {about.values.map((v, i) => (
               <Reveal as="li" key={v.title} delay={i * 90}>
-                <h3 className="font-display text-xl text-forest">{v.title}</h3>
+                <h3 className="font-display text-xl text-espresso">{v.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-ink-soft">{v.text}</p>
               </Reveal>
             ))}

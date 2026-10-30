@@ -1,5 +1,5 @@
 /**
- * Estimator configuration. EVERY NUMBER HERE IS A DEMONSTRATION VALUE, not VitaGrace's real
+ * Estimator configuration. EVERY NUMBER HERE IS A DEMONSTRATION VALUE, not Mercy Solution's real
  * rate: the owner has not supplied prices. While `isDemo` is true the estimator labels its
  * result "demonstration estimate" so no visitor mistakes it for a quote.
  *
@@ -16,6 +16,7 @@ export const pricing = {
   // Base price per visit for a medium-sized space.
   services: {
     residential: { label: 'Residential Cleaning', base: 140 },
+    deep: { label: 'Deep Cleaning', base: 220 },
     move: { label: 'Move-In / Move-Out Cleaning', base: 220 },
     postconstruction: { label: 'Post-Construction Cleaning', base: 320 },
     office: { label: 'Office & Commercial Cleaning', base: 180 },

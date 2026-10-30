@@ -5,23 +5,23 @@ import Reveal from '../../components/ui/Reveal'
 import SectionHeading from '../../components/ui/SectionHeading'
 import Button from '../../components/ui/Button'
 import { pricing, estimate } from '../../data/pricing'
-import { whatsappUrl } from '../../data/business'
+import { business, whatsappUrl } from '../../data/business'
 
 const money = (n) =>
   new Intl.NumberFormat('en-CA', { style: 'currency', currency: pricing.currency, maximumFractionDigits: 0 }).format(n)
 
 const optionBase =
   'tap cursor-pointer rounded-2xl border px-4 py-3 text-left transition-[border-color,background-color,box-shadow] duration-300 ' +
-  'has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-forest '
+  'has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-espresso '
 
 /** Radio/checkbox card: the native input stays in the DOM (visually hidden) for keyboards and screen readers. */
 function Choice({ type = 'radio', name, value, checked, onChange, children, hint }) {
   return (
     <label
-      className={`${optionBase} ${checked ? 'border-forest bg-mint shadow-[inset_0_0_0_1px_var(--color-forest)]' : 'border-line-strong/50 bg-white hover:border-forest'}`}
+      className={`${optionBase} ${checked ? 'border-gold-deep bg-cream shadow-[inset_0_0_0_1px_var(--color-gold-deep)]' : 'border-line-strong/50 bg-white hover:border-espresso'}`}
     >
       <input type={type} name={name} value={value} checked={checked} onChange={onChange} className="sr-only" />
-      <span className="block text-[0.95rem] font-semibold text-forest">{children}</span>
+      <span className="block text-[0.95rem] font-semibold text-espresso">{children}</span>
       {hint && <span className="mt-0.5 block text-xs text-ink-soft">{hint}</span>}
     </label>
   )
@@ -54,7 +54,7 @@ export default function Estimator() {
     extras: pricing.extras.filter((e) => extras.includes(e.id)).map((e) => e.label),
     range: result ? `${money(result.low)} to ${money(result.high)}` : null,
   }
-  const waText = `Hello VitaGrace, I'd like a quote. ${summary.serviceLabel}, ${summary.sizeLabel.toLowerCase()} space, ${bathrooms} bathroom${bathrooms > 1 ? 's' : ''}, ${summary.frequencyLabel.toLowerCase()}${summary.extras.length ? `, extras: ${summary.extras.join(', ')}` : ''}.`
+  const waText = `Hello ${business.name}, I'd like a quote.${summary.serviceLabel}, ${summary.sizeLabel.toLowerCase()} space, ${bathrooms} bathroom${bathrooms > 1 ? 's' : ''}, ${summary.frequencyLabel.toLowerCase()}${summary.extras.length ? `, extras: ${summary.extras.join(', ')}` : ''}.`
 
   return (
     <section id="estimate" aria-labelledby="estimate-title" className="defer bg-paper py-24 md:py-32">
@@ -74,7 +74,7 @@ export default function Estimator() {
             aria-label="Estimator questions"
           >
             <div>
-              <label htmlFor="est-service" className="block text-sm font-semibold text-forest">
+              <label htmlFor="est-service" className="block text-sm font-semibold text-espresso">
                 Which service?
               </label>
               <select
@@ -92,7 +92,7 @@ export default function Estimator() {
             </div>
 
             <fieldset>
-              <legend className="text-sm font-semibold text-forest">How big is the space?</legend>
+              <legend className="text-sm font-semibold text-espresso">How big is the space?</legend>
               <div className="mt-3 grid gap-3 sm:grid-cols-2">
                 {pricing.sizes.map((s) => (
                   <Choice key={s.id} name="est-size" value={s.id} checked={size === s.id} onChange={() => setSize(s.id)} hint={s.hint}>
@@ -103,25 +103,25 @@ export default function Estimator() {
             </fieldset>
 
             <div>
-              <p id="est-bath-label" className="text-sm font-semibold text-forest">
+              <p id="est-bath-label" className="text-sm font-semibold text-espresso">
                 How many bathrooms?
               </p>
               <div className="mt-3 inline-flex items-center gap-1 rounded-full border border-line-strong/50 p-1" role="group" aria-labelledby="est-bath-label">
                 <button
                   type="button"
-                  className="tap grid size-11 place-items-center rounded-full text-forest hover:bg-mint disabled:opacity-40"
+                  className="tap grid size-11 place-items-center rounded-full text-espresso hover:bg-cream disabled:opacity-40"
                   onClick={() => setBathrooms((n) => Math.max(1, n - 1))}
                   disabled={bathrooms <= 1}
                   aria-label="One fewer bathroom"
                 >
                   <Minus className="size-4" aria-hidden="true" />
                 </button>
-                <output className="w-10 text-center text-lg font-semibold text-forest" aria-live="polite">
+                <output className="w-10 text-center text-lg font-semibold text-espresso" aria-live="polite">
                   {bathrooms}
                 </output>
                 <button
                   type="button"
-                  className="tap grid size-11 place-items-center rounded-full text-forest hover:bg-mint disabled:opacity-40"
+                  className="tap grid size-11 place-items-center rounded-full text-espresso hover:bg-cream disabled:opacity-40"
                   onClick={() => setBathrooms((n) => Math.min(pricing.maxBathrooms, n + 1))}
                   disabled={bathrooms >= pricing.maxBathrooms}
                   aria-label="One more bathroom"
@@ -132,7 +132,7 @@ export default function Estimator() {
             </div>
 
             <fieldset>
-              <legend className="text-sm font-semibold text-forest">How often?</legend>
+              <legend className="text-sm font-semibold text-espresso">How often?</legend>
               <div className="mt-3 grid gap-3 sm:grid-cols-2">
                 {pricing.frequencies.map((f) => (
                   <Choice key={f.id} name="est-frequency" value={f.id} checked={frequency === f.id} onChange={() => setFrequency(f.id)}>
@@ -143,7 +143,7 @@ export default function Estimator() {
             </fieldset>
 
             <fieldset>
-              <legend className="text-sm font-semibold text-forest">Any extras?</legend>
+              <legend className="text-sm font-semibold text-espresso">Any extras?</legend>
               <div className="mt-3 grid gap-3 sm:grid-cols-2">
                 {pricing.extras.map((x) => (
                   <Choice key={x.id} type="checkbox" name="est-extras" value={x.id} checked={extras.includes(x.id)} onChange={() => toggleExtra(x.id)}>
@@ -157,10 +157,10 @@ export default function Estimator() {
           {/* Result panel */}
           <aside
             aria-labelledby="est-result-title"
-            className="on-dark relative flex flex-col justify-between overflow-hidden rounded-[2rem] bg-forest p-8 text-white sm:p-10 lg:sticky lg:top-28 lg:self-start"
+            className="on-dark glow-gold relative flex flex-col justify-between overflow-hidden rounded-[2rem] bg-espresso p-8 text-white sm:p-10 lg:sticky lg:top-28 lg:self-start"
           >
             <div>
-              <p id="est-result-title" className="eyebrow text-fresh">
+              <p id="est-result-title" className="eyebrow text-gold">
                 Your estimate
               </p>
               <p className="font-display mt-5 text-[clamp(2rem,4.2vw,3rem)] leading-none" aria-live="polite" aria-atomic="true">
@@ -178,7 +178,7 @@ export default function Estimator() {
 
               {pricing.isDemo && (
                 <p className="mt-6 rounded-xl bg-white/10 px-4 py-3 text-sm leading-relaxed text-white/90">
-                  <strong className="font-semibold text-white">Demonstration estimate.</strong> These figures show how the tool works and are not VitaGrace's rates. Your real quote may differ.
+                  <strong className="font-semibold text-white">Demonstration estimate.</strong> These figures show how the tool works and are not {business.name}'s rates. Your real quote may differ.
                 </p>
               )}
 

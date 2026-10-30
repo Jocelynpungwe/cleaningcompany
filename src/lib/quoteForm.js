@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { services } from '../data/services'
 import { pricing } from '../data/pricing'
+import { business } from '../data/business'
 
 export const serviceOptions = [
   ...services.map((s) => ({ value: s.slug, label: s.name })),
@@ -44,7 +45,7 @@ const label = (options, value) => options.find((o) => o.value === value)?.label
 /** Plain-text version of the request, used for WhatsApp, email and the optional endpoint. */
 export function buildMessage(v, estimate) {
   const lines = [
-    "Hello VitaGrace, I'd like a quote.",
+    `Hello ${business.name}, I'd like a quote.`,
     '',
     `Name: ${v.name}`,
     `Phone: ${v.phone}`,

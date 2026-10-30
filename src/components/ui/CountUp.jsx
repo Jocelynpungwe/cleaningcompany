@@ -26,7 +26,9 @@ export default function CountUp({ to, duration = 1600, className = '' }) {
         io.disconnect()
         const start = performance.now()
         const tick = (now) => {
-          const t = Math.min(1, (now - start) / duration)
+          // clamp both ends: the first rAF timestamp can precede `start`, which made t slightly
+          // negative and the eased value dip below zero (a one-frame "-1")
+          const t = Math.max(0, Math.min(1, (now - start) / duration))
           el.textContent = String(Math.round(easeOutExpo(t) * to))
           if (t < 1) raf = requestAnimationFrame(tick)
         }

@@ -1,6 +1,6 @@
 /**
  * Before/after pairs. THESE ARE DEMONSTRATION IMAGES generated for the site layout, not
- * photographs of VitaGrace's work. The gallery says so on screen (`galleryNote`). Replace
+ * photographs of Mercy Solution's work. The gallery says so on screen (`galleryMeta.note`). Replace
  * with real, permitted before/after photos of the same spot, shot from the same position,
  * then set `isDemo: false`.
  */
@@ -9,7 +9,7 @@ const f = (name) => files[`/src/assets/images/gallery/${name}.webp`]
 
 export const galleryMeta = {
   isDemo: true,
-  note: 'Made for this website to show how the comparison works. They are not photographs of VitaGrace jobs, and real before-and-after photos will replace them.',
+  note: 'Made for this website to show how the comparison works. They are not photographs of Mercy Solution jobs, and real before-and-after photos will replace them.',
 }
 
 export const galleryPairs = [

@@ -63,6 +63,18 @@ try {
   check('room tab swaps the images and resets to 50', srcBefore !== srcAfter && (await pos()) === 50)
   check('demonstration label is visible', (await ev(`document.body.innerText.includes('Demonstration images')`)) === true)
 
+  // ---------- cleaning video ----------
+  await scrollToSel('#video video')
+  check('video does not download until played (preload none, nothing buffered)', (await ev(`(() => { const v = document.querySelector('#video video'); return v.preload === 'none' && v.readyState === 0 })()`)) === true)
+  check('video has a poster image and no controls before play', (await ev(`(() => { const v = document.querySelector('#video video'); return v.poster.endsWith('bright-living-room-poster.webp') && !v.controls })()`)) === true)
+  check('video never autoplays', (await ev(`document.querySelector('#video video').paused`)) === true)
+  check('play button is a labelled button', (await ev(`document.querySelector('#video button')?.getAttribute('aria-label')`)).startsWith('Play video'))
+  await ev(`document.querySelector('#video button').click()`)
+  await b.sleep(2500)
+  check('pressing play starts the video', (await ev(`(() => { const v = document.querySelector('#video video'); return !v.paused && v.currentTime > 0.3 })()`)) === true)
+  check('controls appear after play and the play button is gone', (await ev(`(() => document.querySelector('#video video').controls && !document.querySelector('#video button'))()`)) === true)
+  check('the video file is served', (await ev(`fetch('/videos/bright-living-room.mp4', { method: 'HEAD' }).then((r) => r.ok && r.headers.get('content-type').includes('video'))`)) === true)
+
   // ---------- FAQ ----------
   await scrollToSel('#faq-q-0')
   check('FAQ closed by default', (await ev(`document.getElementById('faq-q-0').getAttribute('aria-expanded')`)) === 'false')
@@ -75,6 +87,12 @@ try {
   await ev(`document.getElementById('faq-q-0').click()`)
   await b.sleep(700)
   check('FAQ closes again', (await ev(`document.getElementById('faq-q-0').getAttribute('aria-expanded')`)) === 'false')
+
+  // ---------- testimonials ----------
+  await scrollToSel('#reviews')
+  const reviewCount = await ev(`document.querySelectorAll('#reviews ul > li').length`)
+  check('testimonials render as cards', reviewCount >= 3, `${reviewCount} cards`)
+  check('sample-review notice is shown on the demo', (await ev(`document.querySelector('#reviews').innerText.includes('Sample reviews')`)) === true)
 
   // ---------- estimator -> contact transfer ----------
   await scrollToSel('#est-service')
@@ -115,9 +133,9 @@ try {
   check('valid submit prepares the request (no endpoint)', body.includes('Your request is ready to send.'))
   check('it says plainly that nothing has been sent', body.includes('It has not been sent yet'))
   const wa = await ev(`[...document.querySelectorAll('a')].find((a) => a.textContent.includes('Send on WhatsApp'))?.href || ''`)
-  check('WhatsApp link targets the business number with the message', wa.startsWith('https://wa.me/16138534419?text=') && wa.includes('Test%20Person'), wa.slice(0, 70))
+  check('WhatsApp link targets the business number with the message', wa.startsWith('https://wa.me/16136952579?text=') && wa.includes('Test%20Person'), wa.slice(0, 70))
   const mail = await ev(`[...document.querySelectorAll('a')].find((a) => a.textContent.includes('Send by email'))?.href || ''`)
-  check('email link is a mailto with the message', mail.startsWith('mailto:') && mail.includes('Test%20Person'))
+  check('email link is a mailto to the owner with the message', mail.startsWith('mailto:marthaargaw0@gmail.com') && mail.includes('Test%20Person'))
 
   // ---------- count-up ----------
   await b.goto(base + '/')
@@ -132,14 +150,15 @@ try {
     await b.sleep(100)
   }
   const nums = seen.map(Number)
-  check('count-up ends on the real number (6)', nums.at(-1) === 6, seen.join(','))
+  const target = nums.at(-1)
+  check('count-up ends on the real number (8)', target === 8, seen.join(','))
   check('count-up passes through intermediate values', new Set(nums).size >= 4, `${new Set(nums).size} distinct`)
   check('count-up never goes backwards', nums.every((n, i) => i === 0 || n >= nums[i - 1]))
-  check('screen readers get the real number, not the animation', (await ev(`document.querySelector('#after-hero .sr-only').textContent.trim().startsWith('6')`)) === true)
+  check('screen readers get the real number, not the animation', (await ev(`document.querySelector('#after-hero .sr-only').textContent.trim().startsWith('8')`)) === true)
   await b.media([{ name: 'prefers-reduced-motion', value: 'reduce' }])
   await b.goto(base + '/')
   await b.sleep(2000)
-  check('reduced motion: the final number is shown straight away', (await ev(`document.querySelector(${JSON.stringify(numeral)}).textContent`)) === '6')
+  check('reduced motion: the final number is shown straight away', (await ev(`document.querySelector(${JSON.stringify(numeral)}).textContent`)) === '8')
   await b.media([])
 
   // ---------- gallery page has no photo-credit block ----------
@@ -154,6 +173,16 @@ try {
   const aboutHref = await ev(`document.querySelector('#about a[href]')?.getAttribute('href')`)
   const aboutLabel = await ev(`document.querySelector('#about a[href]')?.textContent.trim()`)
   check('About button leads to the quote page', aboutHref === '/contact' && /quote/i.test(aboutLabel), `${aboutLabel} -> ${aboutHref}`)
+
+  // ---------- new owner details everywhere ----------
+  // textContent, not innerText: sections skipped by content-visibility have no rendered text yet
+  const html = await ev('document.body.textContent')
+  check('no trace of the previous business name', !/VitaGrace/i.test(html))
+  check('new business name and owner appear', html.includes('Mercy Solution') && html.includes('Martha Argaw'))
+  const links = JSON.parse(await ev(`JSON.stringify([...document.querySelectorAll('a[href]')].map((a) => a.getAttribute('href')))`))
+  check('phone, WhatsApp and email links use the new details',
+    links.some((l) => l === 'tel:+16136952579') && links.some((l) => l.startsWith('https://wa.me/16136952579')) && links.some((l) => l === 'mailto:marthaargaw0@gmail.com'))
+  check('no link still points at the old number or email', !links.some((l) => /16138534419|goldenmart43/.test(l)))
 
   // ---------- reveal safety ----------
   await b.media([{ name: 'prefers-reduced-motion', value: 'reduce' }])

@@ -31,7 +31,7 @@ export default function ServicesShowcase() {
             >
               <Link
                 to={`/services#${s.slug}`}
-                className="group relative block aspect-[4/5] overflow-hidden rounded-[1.75rem] bg-forest-deep"
+                className="group relative block aspect-[4/5] overflow-hidden rounded-[1.75rem] bg-espresso-deep"
               >
                 <img
                   src={s.image}
@@ -44,7 +44,7 @@ export default function ServicesShowcase() {
                 />
                 <span
                   aria-hidden="true"
-                  className="absolute inset-0 bg-gradient-to-t from-forest-deep via-forest-deep/70 via-35% to-transparent to-65%"
+                  className="absolute inset-0 bg-gradient-to-t from-espresso-deep via-espresso-deep/70 via-35% to-transparent to-65%"
                 />
                 <span className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-6 md:p-7">
                   <span className="block">
@@ -53,7 +53,7 @@ export default function ServicesShowcase() {
                       {s.short}
                     </span>
                   </span>
-                  <span className="grid size-11 shrink-0 place-items-center rounded-full bg-fresh text-forest-deep transition-transform duration-500 ease-[var(--ease-premium)] group-hover:rotate-45">
+                  <span className="grid size-11 shrink-0 place-items-center rounded-full bg-gold text-espresso-deep transition-transform duration-500 ease-[var(--ease-premium)] group-hover:rotate-45">
                     <ArrowUpRight className="size-5" aria-hidden="true" />
                   </span>
                 </span>

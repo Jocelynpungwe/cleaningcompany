@@ -6,8 +6,8 @@ import Button from '../ui/Button'
 import { primaryNav, quoteCta } from '../../data/navigation'
 
 const linkClass = ({ isActive }) =>
-  `tap relative inline-flex items-center px-1 py-2 text-[0.95rem] font-medium text-forest transition-opacity duration-300 hover:opacity-70 ` +
-  `after:absolute after:inset-x-1 after:bottom-1 after:h-px after:origin-left after:bg-forest after:transition-transform after:duration-300 ` +
+  `tap relative inline-flex items-center px-1 py-2 text-[0.95rem] font-medium text-espresso transition-opacity duration-300 hover:opacity-70 ` +
+  `after:absolute after:inset-x-1 after:bottom-1 after:h-px after:origin-left after:bg-gold-deep after:transition-transform after:duration-300 ` +
   (isActive ? 'after:scale-x-100' : 'after:scale-x-0')
 
 export default function Navbar() {
@@ -97,7 +97,7 @@ export default function Navbar() {
         <button
           ref={toggleRef}
           type="button"
-          className="tap -mr-2 inline-flex size-11 items-center justify-center rounded-full text-forest lg:hidden"
+          className="tap -mr-2 inline-flex size-11 items-center justify-center rounded-full text-espresso lg:hidden"
           aria-expanded={open}
           aria-controls="mobile-drawer"
           aria-label={open ? 'Close menu' : 'Open menu'}
@@ -124,7 +124,7 @@ export default function Navbar() {
                   end={item.to === '/'}
                   onClick={() => setOpen(false)}
                   className={({ isActive }) =>
-                    `tap flex items-center justify-between py-5 font-display text-3xl ${isActive ? 'text-forest' : 'text-charcoal'}`
+                    `tap flex items-center justify-between py-5 font-display text-3xl ${isActive ? 'text-espresso' : 'text-charcoal'}`
                   }
                 >
                   {item.label}

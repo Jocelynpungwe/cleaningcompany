@@ -11,7 +11,7 @@ const linkCls = 'tap inline-flex py-1.5 text-white/80 transition-colors duration
 
 export default function Footer() {
   return (
-    <footer className="defer on-dark bg-forest-deep text-white">
+    <footer className="defer on-dark glow-gold gold-hairline bg-espresso-deep text-white">
       <div className="container-x grid gap-12 py-20 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_0.8fr_1.2fr]">
         <div>
           <Logo tone="light" />
@@ -20,7 +20,7 @@ export default function Footer() {
             href={whatsappUrl()}
             target="_blank"
             rel="noopener noreferrer"
-            className="tap mt-8 inline-flex items-center gap-2.5 rounded-full bg-fresh px-6 py-3 text-[0.95rem] font-semibold text-forest-deep transition-colors duration-300 hover:bg-white"
+            className="tap mt-8 inline-flex items-center gap-2.5 rounded-full bg-gold px-6 py-3 text-[0.95rem] font-semibold text-espresso-deep transition-colors duration-300 hover:bg-white"
           >
             <MessageCircle className="size-4" aria-hidden="true" />
             Chat on WhatsApp
@@ -28,7 +28,7 @@ export default function Footer() {
         </div>
 
         <nav aria-label="Footer services">
-          <h2 className="eyebrow text-fresh">Services</h2>
+          <h2 className="eyebrow text-gold">Services</h2>
           <ul className="mt-4">
             {services.map((s) => (
               <li key={s.slug}>
@@ -41,7 +41,7 @@ export default function Footer() {
         </nav>
 
         <nav aria-label="Footer">
-          <h2 className="eyebrow text-fresh">Explore</h2>
+          <h2 className="eyebrow text-gold">Explore</h2>
           <ul className="mt-4">
             {primaryNav.map((item) => (
               <li key={item.to}>
@@ -59,12 +59,12 @@ export default function Footer() {
         </nav>
 
         <div>
-          <h2 className="eyebrow text-fresh">Contact</h2>
+          <h2 className="eyebrow text-gold">Contact</h2>
           <ul className="mt-4 space-y-3.5 text-white/85">
             {business.phone && (
               <li>
                 <a href={business.phoneHref} className="tap inline-flex items-center gap-3 hover:text-white">
-                  <Phone className="size-4 shrink-0 text-fresh" aria-hidden="true" />
+                  <Phone className="size-4 shrink-0 text-gold" aria-hidden="true" />
                   {business.phone}
                 </a>
               </li>
@@ -72,13 +72,13 @@ export default function Footer() {
             {business.email && (
               <li>
                 <a href={`mailto:${business.email}`} className="tap inline-flex items-center gap-3 break-all hover:text-white">
-                  <Mail className="size-4 shrink-0 text-fresh" aria-hidden="true" />
+                  <Mail className="size-4 shrink-0 text-gold" aria-hidden="true" />
                   {business.email}
                 </a>
               </li>
             )}
             <li className="flex items-center gap-3">
-              <MapPin className="size-4 shrink-0 text-fresh" aria-hidden="true" />
+              <MapPin className="size-4 shrink-0 text-gold" aria-hidden="true" />
               Serving {business.areaServed}
             </li>
             {business.hours && <li className="pl-7 text-sm text-white/70">{business.hours}</li>}
@@ -102,7 +102,10 @@ export default function Footer() {
           <p>
             &copy; {YEAR} {business.fullName}. All rights reserved.
           </p>
-          <p>Proudly serving {business.city} with {business.yearsExperience} years of excellence.</p>
+          <p>
+            Proudly serving {business.city} for {business.yearsExperience} years.
+            {business.isDemo && <span className="ml-2 rounded-full bg-white/10 px-2.5 py-0.5 text-white/80">Demo site: sample content</span>}
+          </p>
         </div>
       </div>
     </footer>

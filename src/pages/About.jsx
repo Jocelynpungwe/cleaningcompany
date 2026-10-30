@@ -4,12 +4,12 @@ import WhyChoose from '../sections/Why/WhyChoose'
 import ServiceAreas from '../sections/Areas/ServiceAreas'
 import FinalCta from '../sections/CTA/FinalCta'
 import { useDocumentMeta } from '../hooks/useDocumentMeta'
+import { business } from '../data/business'
 
 export default function About() {
   useDocumentMeta({
-    title: 'About VitaGrace Cleaning Services',
-    description:
-      'Six years of professional cleaning for homes and businesses in Ottawa. Friendly cleaners, eco-friendly products and a satisfaction guarantee.',
+    title: `About ${business.fullName}`,
+    description: `A family-run Ottawa cleaning company founded by ${business.owner.name}. ${business.yearsExperience} years of care, eco-friendly products and a 24-hour re-clean promise.`,
   })
 
   return (
@@ -17,7 +17,7 @@ export default function About() {
       <PageHeader
         eyebrow="About us"
         title="Care, reliability and a little sparkle."
-        lede="VitaGrace Cleaning Services has been cleaning homes and businesses in Ottawa for six years."
+        lede={`${business.fullName} has been cleaning homes and businesses across Ottawa for ${business.yearsExperience} years, led by founder ${business.owner.name}.`}
       />
       <AboutPreview id="story" />
       <WhyChoose />
