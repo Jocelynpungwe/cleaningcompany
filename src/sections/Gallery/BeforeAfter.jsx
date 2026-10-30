@@ -14,7 +14,7 @@ export default function BeforeAfter({ showLink = true, headingTag = 'h2' }) {
   const pair = galleryPairs[index]
 
   return (
-    <section id="gallery" aria-labelledby="gallery-title" className="defer on-dark bg-forest-deep py-24 md:py-32">
+    <section id="gallery" aria-labelledby="gallery-title" className="defer on-dark glow-gold bg-espresso-deep py-24 md:py-32">
       <div className="container-x">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <SectionHeading
@@ -45,7 +45,7 @@ export default function BeforeAfter({ showLink = true, headingTag = 'h2' }) {
                 onClick={() => setIndex(i)}
                 className={`tap rounded-full border px-5 py-2.5 text-sm font-semibold transition-colors duration-300 ${
                   i === index
-                    ? 'border-fresh bg-fresh text-forest-deep'
+                    ? 'border-gold bg-gold text-espresso-deep'
                     : 'border-white/30 text-white hover:border-white hover:bg-white/10'
                 }`}
               >

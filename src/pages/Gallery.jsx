@@ -6,7 +6,7 @@ import { useDocumentMeta } from '../hooks/useDocumentMeta'
 export default function Gallery() {
   useDocumentMeta({
     title: 'Before and After Gallery',
-    description: 'Drag to compare rooms before and after a professional clean. Demonstration images until real VitaGrace photos are added.',
+    description: 'Drag to compare rooms before and after a professional clean. Demonstration images until real Mercy Solution photos are added.',
   })
 
   return (

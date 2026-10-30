@@ -7,17 +7,17 @@ const base =
   'active:translate-y-px disabled:pointer-events-none disabled:opacity-60'
 
 const variants = {
-  // forest on light surfaces (11:1 on paper)
-  primary: 'bg-forest text-white hover:bg-forest-deep hover:shadow-[var(--shadow-soft)]',
+  // the signature gold button, dark text on gold (10:1), works on light and dark surfaces alike
+  primary: 'btn-gold hover:-translate-y-0.5',
   // outlined, for secondary actions on light surfaces
   secondary:
-    'border border-line-strong text-forest hover:border-forest hover:bg-forest/[0.06]',
+    'border border-line-strong text-espresso hover:border-gold-deep hover:bg-gold-soft/50',
   // solid backing so the label stays readable over any photograph (used in the hero)
   secondaryOnPhoto:
-    'border border-forest/40 bg-paper/92 text-forest backdrop-blur-sm hover:border-forest hover:bg-white',
-  // fresh green on dark sections
-  onDark: 'bg-fresh text-forest-deep hover:bg-white',
-  ghostOnDark: 'border border-white/40 text-white hover:border-white hover:bg-white/10',
+    'border border-espresso/40 bg-paper/92 text-espresso backdrop-blur-sm hover:border-gold-deep hover:bg-white',
+  // same gold button, named for dark sections
+  onDark: 'btn-gold hover:-translate-y-0.5',
+  ghostOnDark: 'border border-white/40 text-white hover:border-gold hover:bg-white/10',
 }
 
 /**

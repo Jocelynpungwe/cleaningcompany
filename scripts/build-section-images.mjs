@@ -29,6 +29,7 @@ const jobs = [
   // service cards, 4:5
   // the five services the business really offers (see src/data/services.js)
   { src: gen('residential.png'), out: img('services/residential-cleaning.webp'), w: 960, h: 1200, q: 74 },
+  { src: gen('deep.png'), out: img('services/deep-cleaning.webp'), w: 960, h: 1200, q: 74 },
   { src: gen('move.png'), out: img('services/move-in-move-out-cleaning.webp'), w: 960, h: 1200, q: 74 },
   { src: unsplash('photo-1625585598750-3535fe40efb3'), out: img('services/post-construction-cleaning.webp'), w: 960, h: 1200, q: 74, frac: [0.04, 0, 0.54, 1] },
   { src: gen('office.png'), out: img('services/office-commercial-cleaning.webp'), w: 960, h: 1200, q: 74 },

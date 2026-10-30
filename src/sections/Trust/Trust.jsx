@@ -14,7 +14,7 @@ export default function Trust() {
             {trust.heading}
           </SectionHeading>
           <Reveal delay={150} className="mt-12 flex items-end gap-5 border-t border-line pt-8">
-            <span className="font-display text-[6.5rem] leading-[0.8] text-fresh" aria-hidden="true">
+            <span className="font-display text-[6.5rem] leading-[0.8] text-gold" aria-hidden="true">
               <CountUp to={business.yearsExperience} />
             </span>
             <p className="max-w-[14rem] pb-1 text-sm leading-snug text-ink-soft">
@@ -27,10 +27,10 @@ export default function Trust() {
         <ul className="grid gap-x-10 gap-y-12 sm:grid-cols-2">
           {trust.points.map((p, i) => (
             <Reveal as="li" key={p.title} delay={i * 90} className="border-t border-line pt-7">
-              <span className="grid size-12 place-items-center rounded-full bg-mint text-forest">
+              <span className="grid size-12 place-items-center rounded-full bg-cream text-gold-deep ring-1 ring-gold/40">
                 <Icon name={p.icon} />
               </span>
-              <h3 className="font-display mt-6 text-2xl text-forest">{p.title}</h3>
+              <h3 className="font-display mt-6 text-2xl text-espresso">{p.title}</h3>
               <p className="mt-3 leading-relaxed text-ink-soft">{p.text}</p>
             </Reveal>
           ))}

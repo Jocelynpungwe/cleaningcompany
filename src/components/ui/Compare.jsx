@@ -57,7 +57,7 @@ export default function Compare({ before, after, alt, label = 'Before and after 
   return (
     <div
       ref={box}
-      className="compare relative aspect-[3/2] w-full overflow-hidden rounded-[1.5rem] bg-forest-deep"
+      className="compare relative aspect-[3/2] w-full overflow-hidden rounded-[1.5rem] bg-espresso-deep"
       style={{ '--pos': `${pos}%` }}
       data-dragging={dragging}
       data-hint={hint}
@@ -78,10 +78,10 @@ export default function Compare({ before, after, alt, label = 'Before and after 
         className="compare__before absolute inset-0 size-full object-cover"
       />
 
-      <span className="pointer-events-none absolute left-4 top-4 rounded-full bg-forest-deep/80 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-white backdrop-blur-sm">
+      <span className="pointer-events-none absolute left-4 top-4 rounded-full bg-espresso-deep/80 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-white backdrop-blur-sm">
         Before
       </span>
-      <span className="pointer-events-none absolute right-4 top-4 rounded-full bg-paper/90 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-forest backdrop-blur-sm">
+      <span className="pointer-events-none absolute right-4 top-4 rounded-full bg-paper/90 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-espresso backdrop-blur-sm">
         After
       </span>
 
@@ -99,7 +99,7 @@ export default function Compare({ before, after, alt, label = 'Before and after 
           onFocus={() => setHint(false)}
           className="compare__thumb pointer-events-auto absolute left-1/2 top-1/2 grid size-14 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full"
         >
-          <span className="compare__handle grid size-12 place-items-center rounded-full bg-white text-forest shadow-[0_6px_24px_rgb(0_0_0/0.28)]">
+          <span className="compare__handle grid size-12 place-items-center rounded-full bg-white text-espresso shadow-[0_6px_24px_rgb(0_0_0/0.28)]">
             <ChevronsLeftRight className="size-5" aria-hidden="true" />
           </span>
         </button>

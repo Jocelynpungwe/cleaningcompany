@@ -5,10 +5,10 @@ export default function SectionHeading({ id, eyebrow, children, lede, tone = 'li
   const dark = tone === 'dark'
   return (
     <Reveal className={`${align === 'center' ? 'mx-auto text-center' : ''} max-w-3xl ${className}`}>
-      {eyebrow && <p className={`eyebrow ${dark ? 'text-fresh' : 'text-forest'}`}>{eyebrow}</p>}
+      {eyebrow && <p className={`eyebrow eyebrow-rule ${dark ? 'text-gold' : 'text-gold-deep'}`}>{eyebrow}</p>}
       <H
         id={id}
-        className={`font-display mt-4 text-[clamp(1.85rem,3.9vw,3rem)] leading-[1.12] ${dark ? 'text-white' : 'text-forest'}`}
+        className={`font-display mt-4 text-[clamp(1.85rem,3.9vw,3rem)] leading-[1.12] ${dark ? 'text-white' : 'text-espresso'}`}
       >
         {children}
       </H>

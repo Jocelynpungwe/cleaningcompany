@@ -1,32 +1,38 @@
 /**
- * Business facts, supplied by the owner (source: vitagraceclean.com and the owner's pasted copy).
- * A `null` / empty value means the UI hides that element, so nothing is ever invented.
+ * Business facts for the DEMO site. Real from the owner: company name, owner name, phone and email.
+ * INVENTED for the demonstration (replace before a real launch): years in business, founding story,
+ * hours, the neighbourhood list, the re-clean promise, the testimonials and every "about" detail.
+ * Set `isDemo: false` to remove the "sample content" notes once real details are in.
  *
- * NOT supplied yet, and therefore not shown anywhere: street address, opening hours, social
- * accounts, customer reviews, prices, licences, insurance or certifications.
+ * A `null` / empty value means the UI hides that element.
  */
 export const business = {
-  name: 'VitaGrace',
-  descriptor: 'Cleaning Services',
-  fullName: 'VitaGrace Cleaning Services',
-  tagline: 'Trusted hands for a sparkling home.',
+  isDemo: true,
+
+  name: 'Mercy Solution',
+  legalName: 'Mercy Solution Inc.',
+  fullName: 'Mercy Solution Inc.',
+  descriptor: 'Cleaning Company',
+  tagline: 'Spotless spaces, handled with care.',
+
+  owner: { name: 'Martha Argaw', role: 'Founder and owner' },
 
   city: 'Ottawa',
   region: 'ON',
   country: 'CA',
   areaServed: 'Ottawa & surroundings',
 
-  yearsExperience: 6,
+  yearsExperience: 8, // demo value
 
-  phone: '+1 613 853 4419', // the number is also the WhatsApp number
-  phoneHref: 'tel:+16138534419',
-  whatsappNumber: '16138534419',
-  email: 'goldenmart43@gmail.com', // as given by the owner: confirm this is the address to publish
+  phone: '+1 613 695 2579', // also used for WhatsApp links (assumes the number is on WhatsApp)
+  phoneHref: 'tel:+16136952579',
+  whatsappNumber: '16136952579',
+  email: 'marthaargaw0@gmail.com',
   address: null,
-  hours: null,
+  hours: 'Mon to Sat, 8am to 6pm', // demo value
 
-  // Verified service areas only. The owner gave a region, not neighbourhoods: do not add any unconfirmed.
-  serviceAreas: [],
+  // Demo list of Ottawa-area communities. Confirm the real coverage before launch.
+  serviceAreas: ['Kanata', 'Barrhaven', 'Orleans', 'Nepean', 'Stittsville', 'Gloucester', 'Centretown', 'Vanier'],
 
   social: [], // { label: 'Instagram', href: 'https://instagram.com/...' }
 
@@ -34,7 +40,7 @@ export const business = {
 }
 
 /** wa.me deep link with a prefilled message. Opens WhatsApp on phone and WhatsApp Web on desktop. */
-export const whatsappUrl = (message = "Hello VitaGrace, I'd like a free cleaning quote") =>
+export const whatsappUrl = (message = `Hello ${business.name}, I'd like a free cleaning quote`) =>
   `https://wa.me/${business.whatsappNumber}?text=${encodeURIComponent(message)}`
 
 export const mailtoUrl = (subject, body) =>

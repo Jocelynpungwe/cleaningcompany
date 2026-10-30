@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useLocation, useSearchParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { AlertCircle, Loader2, Mail, MapPin, MessageCircle, Phone } from 'lucide-react'
+import { AlertCircle, Clock, Loader2, Mail, MapPin, MessageCircle, Phone } from 'lucide-react'
 import PageHeader from '../components/common/PageHeader'
 import Reveal from '../components/ui/Reveal'
 import Button from '../components/ui/Button'
@@ -15,13 +15,13 @@ const ENDPOINT = import.meta.env.VITE_FORM_ENDPOINT
 
 const control =
   'tap mt-2 w-full rounded-2xl border bg-white px-4 py-3.5 text-[0.95rem] text-charcoal placeholder:text-ink-soft/70 ' +
-  'transition-[border-color,box-shadow] duration-300 focus:border-forest focus:outline-none focus:ring-2 focus:ring-forest/30 '
+  'transition-[border-color,box-shadow] duration-300 focus:border-espresso focus:outline-none focus:ring-2 focus:ring-espresso/30 '
 
 function Field({ id, label, error, hint, optional, children }) {
   const describedBy = [hint && `${id}-hint`, error && `${id}-error`].filter(Boolean).join(' ') || undefined
   return (
     <div>
-      <label htmlFor={id} className="block text-sm font-semibold text-forest">
+      <label htmlFor={id} className="block text-sm font-semibold text-espresso">
         {label}
         {optional && <span className="ml-1.5 font-normal text-ink-soft">(optional)</span>}
       </label>
@@ -44,7 +44,7 @@ function Field({ id, label, error, hint, optional, children }) {
 export default function Contact() {
   useDocumentMeta({
     title: 'Get Your Free Quote',
-    description: 'Request a free cleaning quote in Ottawa. Message VitaGrace on WhatsApp, email or use the quote form.',
+    description: `Request a free cleaning quote in Ottawa. Message ${business.name} on WhatsApp, call, email or use the quote form.`,
   })
 
   const { state } = useLocation()
@@ -134,9 +134,9 @@ export default function Contact() {
               href={whatsappUrl()}
               target="_blank"
               rel="noopener noreferrer"
-              className="tap group flex items-center gap-4 rounded-3xl bg-forest p-6 text-white transition-colors duration-300 hover:bg-forest-deep"
+              className="tap group flex items-center gap-4 rounded-3xl bg-espresso p-6 text-white transition-colors duration-300 hover:bg-espresso-deep"
             >
-              <span className="grid size-12 shrink-0 place-items-center rounded-full bg-fresh text-forest-deep">
+              <span className="grid size-12 shrink-0 place-items-center rounded-full bg-gold text-espresso-deep">
                 <MessageCircle className="size-5" aria-hidden="true" />
               </span>
               <span>
@@ -146,8 +146,8 @@ export default function Contact() {
             </a>
             <ul className="divide-y divide-line rounded-3xl border border-line bg-white">
               <li>
-                <a href={business.phoneHref} className="tap flex items-center gap-4 p-5 text-charcoal hover:text-forest">
-                  <Phone className="size-5 shrink-0 text-forest" aria-hidden="true" />
+                <a href={business.phoneHref} className="tap flex items-center gap-4 p-5 text-charcoal hover:text-espresso">
+                  <Phone className="size-5 shrink-0 text-espresso" aria-hidden="true" />
                   <span>
                     <span className="block text-xs font-semibold uppercase tracking-[0.12em] text-ink-soft">Phone</span>
                     {business.phone}
@@ -155,8 +155,8 @@ export default function Contact() {
                 </a>
               </li>
               <li>
-                <a href={`mailto:${business.email}`} className="tap flex items-center gap-4 break-all p-5 text-charcoal hover:text-forest">
-                  <Mail className="size-5 shrink-0 text-forest" aria-hidden="true" />
+                <a href={`mailto:${business.email}`} className="tap flex items-center gap-4 break-all p-5 text-charcoal hover:text-espresso">
+                  <Mail className="size-5 shrink-0 text-espresso" aria-hidden="true" />
                   <span>
                     <span className="block text-xs font-semibold uppercase tracking-[0.12em] text-ink-soft">Email</span>
                     {business.email}
@@ -164,23 +164,32 @@ export default function Contact() {
                 </a>
               </li>
               <li className="flex items-center gap-4 p-5 text-charcoal">
-                <MapPin className="size-5 shrink-0 text-forest" aria-hidden="true" />
+                <MapPin className="size-5 shrink-0 text-espresso" aria-hidden="true" />
                 <span>
                   <span className="block text-xs font-semibold uppercase tracking-[0.12em] text-ink-soft">Serving</span>
                   {business.areaServed}
                 </span>
               </li>
+              {business.hours && (
+                <li className="flex items-center gap-4 p-5 text-charcoal">
+                  <Clock className="size-5 shrink-0 text-espresso" aria-hidden="true" />
+                  <span>
+                    <span className="block text-xs font-semibold uppercase tracking-[0.12em] text-ink-soft">Hours</span>
+                    {business.hours}
+                  </span>
+                </li>
+              )}
             </ul>
           </Reveal>
 
           <Reveal delay={100} className="rounded-[2rem] border border-line bg-white p-6 shadow-[var(--shadow-soft)] sm:p-10">
             {showForm ? (
               <form onSubmit={handleSubmit(onSubmit, () => setInvalidTick((n) => n + 1))} noValidate aria-busy={status === 'sending'}>
-                <h2 className="font-display text-3xl text-forest">Request your free quote</h2>
+                <h2 className="font-display text-3xl text-espresso">Request your free quote</h2>
                 <p className="mt-2 text-sm text-ink-soft">Fields marked with an asterisk are required.</p>
 
                 {estimate?.range && (
-                  <p className="mt-5 rounded-2xl bg-mint px-4 py-3 text-sm text-forest">
+                  <p className="mt-5 rounded-2xl bg-cream px-4 py-3 text-sm text-espresso">
                     Your estimator answers are filled in below ({estimate.range}, demonstration figures).
                   </p>
                 )}
@@ -278,7 +287,7 @@ export default function Contact() {
                   <button
                     type="submit"
                     disabled={status === 'sending'}
-                    className="tap inline-flex items-center justify-center gap-2.5 rounded-full bg-forest px-8 py-4 text-[0.95rem] font-semibold text-white transition-colors duration-300 hover:bg-forest-deep disabled:opacity-70"
+                    className="tap inline-flex items-center justify-center gap-2.5 rounded-full bg-espresso px-8 py-4 text-[0.95rem] font-semibold text-white transition-colors duration-300 hover:bg-espresso-deep disabled:opacity-70"
                   >
                     {status === 'sending' ? (
                       <>
@@ -302,7 +311,7 @@ export default function Contact() {
               <div ref={resultRef} tabIndex={-1} className="outline-none" role="status">
                 {status === 'sent' && (
                   <>
-                    <h2 className="font-display text-3xl text-forest">Thank you, we have your request.</h2>
+                    <h2 className="font-display text-3xl text-espresso">Thank you, we have your request.</h2>
                     <p className="mt-4 text-ink-soft">We will reply with a quote for your space. For anything urgent, message us on WhatsApp.</p>
                   </>
                 )}
@@ -314,7 +323,7 @@ export default function Contact() {
                 )}
                 {status === 'prepared' && (
                   <>
-                    <h2 className="font-display text-3xl text-forest">Your request is ready to send.</h2>
+                    <h2 className="font-display text-3xl text-espresso">Your request is ready to send.</h2>
                     <p className="mt-4 text-ink-soft">
                       <strong className="text-charcoal">It has not been sent yet.</strong> Choose how you would like to send it. Your details are filled in for you.
                     </p>
@@ -323,7 +332,7 @@ export default function Contact() {
 
                 {(status === 'prepared' || status === 'error') && (
                   <>
-                    <pre className="mt-6 max-h-64 overflow-auto whitespace-pre-wrap rounded-2xl bg-mint p-5 font-sans text-sm leading-relaxed text-charcoal">{prepared}</pre>
+                    <pre className="mt-6 max-h-64 overflow-auto whitespace-pre-wrap rounded-2xl bg-cream p-5 font-sans text-sm leading-relaxed text-charcoal">{prepared}</pre>
                     <div className="mt-6 flex flex-wrap gap-3">
                       <Button href={waLink} target="_blank" rel="noopener noreferrer" arrow>
                         Send on WhatsApp

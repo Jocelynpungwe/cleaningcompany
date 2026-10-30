@@ -4,20 +4,24 @@
 @import '@fontsource-variable/playfair-display/wght-italic.css';
 
 /* ---------------------------------------------------------------------------
-   Design tokens. Palette is the brief's palette; nothing else is added except
-   neutral support tones derived from it. Business content never lives here.
+   Design tokens: a warm "gold on espresso" palette over soft ivory and cream.
+   Gold text on light surfaces always uses --color-gold-deep (5.6:1 on paper); the
+   bright --color-gold is for fills, icons and anything sitting on the dark tones.
+   Business content never lives here.
    ------------------------------------------------------------------------ */
 @theme {
-  --color-forest: #123d32;
-  --color-forest-deep: #0b2a22;
-  --color-fresh: #78b89a;
-  --color-mint: #eaf5ef;
-  --color-paper: #fafaf7;
-  --color-charcoal: #202b26;
+  --color-espresso: #2b2115; /* headings, dark panels */
+  --color-espresso-deep: #14100a; /* footer, dark sections, text on gold */
+  --color-gold: #d4af5f; /* bright gold: fills, icons, accents on dark */
+  --color-gold-deep: #7d5c0e; /* gold for TEXT on light surfaces */
+  --color-gold-soft: #f1e2b6; /* gold tint for hovers and washes */
+  --color-cream: #f7f0de; /* soft section background */
+  --color-paper: #fcfaf4; /* page background */
+  --color-charcoal: #2a241a; /* body text */
   /* support tones */
-  --color-ink-soft: #4b5b53; /* secondary text: 7.2:1 on paper */
-  --color-line: #dfe4de; /* decorative hairlines only */
-  --color-line-strong: #6b8678; /* interactive borders: 3.7:1 on paper */
+  --color-ink-soft: #5c5342; /* secondary text: 7.4:1 on paper */
+  --color-line: #e7dfca; /* decorative hairlines only */
+  --color-line-strong: #8c7e5e; /* interactive borders: 3.8:1 on paper */
 
   --font-sans: 'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-display: 'Playfair Display Variable', ui-serif, Georgia, 'Times New Roman', serif;
@@ -25,9 +29,9 @@
   --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
 
-  --shadow-soft: 0 1px 2px rgb(18 61 50 / 0.06), 0 12px 32px -12px rgb(18 61 50 / 0.18);
+  --shadow-soft: 0 1px 2px rgb(43 33 21 / 0.06), 0 14px 36px -14px rgb(43 33 21 / 0.22);
+  --shadow-gold: 0 10px 28px -10px rgb(185 138 46 / 0.6);
 }
-
 :root {
   --gutter: clamp(1.25rem, 4vw, 3rem);
   --nav-h: 4.5rem;
@@ -64,17 +68,17 @@ html.no-scroll body {
 }
 
 ::selection {
-  background: var(--color-fresh);
-  color: var(--color-forest-deep);
+  background: var(--color-gold);
+  color: var(--color-espresso-deep);
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-forest);
+  outline: 2px solid var(--color-espresso);
   outline-offset: 3px;
   border-radius: 4px;
 }
 .on-dark :focus-visible {
-  outline-color: var(--color-fresh);
+  outline-color: var(--color-gold);
 }
 
 /* Touch targets: at least 44px for coarse pointers, without changing layout. */
@@ -98,6 +102,66 @@ html.no-scroll body {
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
+/* section eyebrows get a short gold rule in front (headings only, not every .eyebrow) */
+.eyebrow-rule {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.eyebrow-rule::before {
+  content: '';
+  width: 2rem;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--color-gold), color-mix(in srgb, var(--color-gold) 15%, transparent));
+}
+
+/* ----------------------------------------------------------- gold polish ---- */
+:root {
+  --gradient-gold: linear-gradient(135deg, #ecd081 0%, #d4af5f 48%, #b98a2e 100%);
+}
+
+/* primary buttons: gold with dark text (10.4:1), a soft glow and a light sweep on hover */
+.btn-gold {
+  position: relative;
+  overflow: hidden;
+  background: var(--gradient-gold);
+  color: var(--color-espresso-deep);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.5),
+    var(--shadow-gold);
+}
+.btn-gold::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 0.55) 50%, transparent 70%);
+  transform: translateX(-130%);
+  transition: transform 0.9s var(--ease-premium);
+  pointer-events: none;
+}
+.btn-gold:hover {
+  filter: saturate(1.08) brightness(1.04);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.5),
+    0 16px 36px -12px rgb(185 138 46 / 0.75);
+}
+.btn-gold:hover::after {
+  transform: translateX(130%);
+}
+
+/* warm gold light on dark sections */
+.glow-gold {
+  background-image:
+    radial-gradient(56rem 26rem at 88% -8%, rgb(212 175 95 / 0.17), transparent 62%),
+    radial-gradient(38rem 22rem at -6% 112%, rgb(212 175 95 / 0.1), transparent 62%);
+}
+
+/* a hairline of gold light along the top edge of a dark block */
+.gold-hairline {
+  border-top: 1px solid transparent;
+  border-image: linear-gradient(90deg, transparent, rgb(212 175 95 / 0.65), transparent) 1;
+}
 
 .container-x {
   width: min(100% - 2 * var(--gutter), 82rem);
@@ -110,7 +174,7 @@ html.no-scroll body {
   left: 1rem;
   top: -4rem;
   z-index: 100;
-  background: var(--color-forest);
+  background: var(--color-espresso);
   color: #fff;
   padding: 0.75rem 1.25rem;
   border-radius: 0.5rem;
@@ -119,7 +183,7 @@ html.no-scroll body {
 }
 .skip-link:focus-visible {
   top: 1rem;
-  outline-color: var(--color-fresh);
+  outline-color: var(--color-gold);
 }
 
 /* -------------------------------------------- off-screen section deferral ---- */
@@ -173,7 +237,7 @@ html.no-scroll body {
   outline: none;
 }
 .compare__thumb:focus-visible .compare__handle {
-  box-shadow: 0 0 0 3px var(--color-paper), 0 0 0 6px var(--color-forest);
+  box-shadow: 0 0 0 3px var(--color-paper), 0 0 0 6px var(--color-espresso);
 }
 @keyframes nudge {
   0%,

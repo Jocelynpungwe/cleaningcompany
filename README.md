@@ -1,11 +1,15 @@
-# VitaGrace Cleaning Services: website
+# Mercy Solution Inc. (cleaning company): demo website
 
 React 19 + Vite 8 + Tailwind CSS 4 + React Router 7 + GSAP/ScrollTrigger. JavaScript (no TypeScript).
 Display font Playfair Display, text font Plus Jakarta Sans, both self-hosted (no third-party requests).
 
 **What is built:** the scroll-controlled "messy to spotless" kitchen-stove hero, the full homepage
-(13 sections), and the About, Services, Gallery, Contact and Privacy pages. Real business details from the
-owner are in `src/data/business.js`.
+(13 sections), and the About, Services, Gallery, Contact and Privacy pages.
+
+**This is a DEMO for Mercy Solution Inc.** Real: company name, owner (Martha Argaw), phone (613 695 2579) and
+email (marthaargaw0@gmail.com). Invented for the demonstration: years in business, founding story, hours, the
+neighbourhood list, the re-clean promise, the six sample testimonials and the estimator prices. Everything is in
+`src/data/`; `business.isDemo` and `testimonialsMeta.isDemo` control the on-screen "sample content" notes.
 
 ## Setup
 
@@ -47,14 +51,15 @@ phones and failed frames, and cleans up fully on unmount.
 
 **Quote form (`/contact`).** React Hook Form + Zod, accessible error summary, loading state. With no endpoint
 configured it does NOT pretend to submit: it builds the message and offers "Send on WhatsApp" (opens
-`wa.me/16138534419` with the text filled in) and "Send by email", and says "it has not been sent yet". Set
+`wa.me/16136952579` with the text filled in) and "Send by email", and says "it has not been sent yet". Set
 `VITE_FORM_ENDPOINT` to POST the JSON to a form service instead; success is shown only on a 2xx response.
 
 **Estimator.** Rates in `src/data/pricing.js` are DEMONSTRATION values and the result is labelled "Demonstration
 estimate" while `isDemo` is true. Enter the real rates, set `isDemo: false`, and review the wording.
 
-**Testimonials.** `src/data/testimonials.js` is empty on purpose. Until real reviews are added the section shows
-an invitation to share one by WhatsApp. Add entries and it switches to the review grid automatically.
+**Testimonials.** `src/data/testimonials.js` holds six SAMPLE reviews (fictional customers) and the section says
+so on screen. They are deliberately left out of the structured data. Replace them with real reviews and set
+`testimonialsMeta.isDemo` to false; with an empty list the section falls back to an invitation to share a review.
 
 **Gallery.** The before/after pairs are generated demonstration images and are labelled as such on screen.
 Replace them with real photos (same spot, same position) and set `isDemo: false` in `src/data/gallery.js`.
@@ -62,6 +67,17 @@ Replace them with real photos (same spot, same position) and set `isDemo: false`
 **Images.** Section photos come from Unsplash (free licence, no attribution required) and Higgsfield. They are
 rebuilt to WebP by `scripts/build-section-images.mjs`; `scripts/fetch-unsplash.mjs` downloads and previews
 Unsplash photos.
+
+**Theme.** A gold-on-espresso palette over ivory and cream, defined once as tokens in `src/styles/index.css`
+(`espresso`, `espresso-deep`, `gold`, `gold-deep`, `gold-soft`, `cream`, `paper`). Use `gold-deep` for gold TEXT on
+light surfaces (5.6:1) and the bright `gold` for fills, icons and anything on dark. Primary buttons use the
+`.btn-gold` class; dark sections use `.glow-gold`.
+
+**Cleaning video (homepage, "See us at work").** `public/videos/bright-living-room.mp4` (720p, no audio, about
+3 MB) with a poster image. A free Pexels stock clip, used under the Pexels licence (no attribution required). It never
+autoplays and downloads nothing until the visitor presses play. The on-screen note "Sample footage" shows while
+`business.isDemo` is true; replace the clip with the company's own footage by overwriting the two files and
+updating `video` in `src/data/homeContent.js`.
 
 ## Testing
 
@@ -95,13 +111,12 @@ consider prerendering the routes (for example with `vite-plugin-prerender` or by
 
 ## Still needed before launch
 
-1. **Owner to confirm:** the email address to publish (`goldenmart43@gmail.com` is what the current site uses),
-   the "satisfaction guaranteed" wording, and that "eco-friendly, non-toxic products" is accurate. The
-   "100% satisfaction rate" figure from the old site is deliberately NOT used as a number.
-2. **Not supplied, so not shown:** street address, opening hours, social accounts, service-area names,
-   prices, licences, insurance, certifications.
-3. **Real photos of VitaGrace's own work** (before/after pairs, team, vehicle) to replace the demonstration
-   images; real customer reviews with permission.
+1. **Owner to confirm (everything invented for the demo):** years in business, founding story, hours, the
+   neighbourhood list, the 24-hour re-clean promise, the eco-friendly claims, and whether 613 695 2579 is on
+   WhatsApp (the WhatsApp buttons assume it is).
+2. **Not supplied, so not shown:** street address, social accounts, prices, licences, insurance, certifications.
+3. **Real photos of Mercy Solution's own work** (before/after pairs, team, vehicle) to replace the demonstration
+   images; real customer reviews with permission (replacing the samples).
 4. **Real estimator rates** (or remove the estimator).
 5. **A form endpoint** (`VITE_FORM_ENDPOINT`) if you want requests delivered without WhatsApp/email.
 6. **A 1200x630 share image** and `og:image` / `og:url` once the domain is final; `sitemap.xml`.
